@@ -27,7 +27,7 @@ class JobSearchApp:
     def render_app_page(self):
         
         st.subheader("JOBS")
-        job_query = st.text_input("Enter the job", "")
+        job = st.text_input("Enter the job", "")
 
         location = st.text_input("LOCATION", value="Remote")
 
@@ -39,7 +39,7 @@ class JobSearchApp:
         num_results = st.number_input("How many results: ", value=5, min_value=1, max_value=10)
 
         with open("user_input.txt", 'w') as f:
-            f.write(f"{job_query}"+ '\n')
+            f.write(f"{job}"+ '\n')
             f.write(f"{location}"+ '\n')
             f.write(f"{experience_level}"+ '\n')
             f.write(f"{num_results}"+ '\n')
