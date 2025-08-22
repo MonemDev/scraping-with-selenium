@@ -21,8 +21,7 @@ class JobSearchApp:
             f.write(f"{email}"+ '\n')
             f.write(f"{password}"+ '\n')
         if st.button("ENTER"):
-            self.change_page("app_page")
-        
+            self.change_page("app_page")    
 
     def render_app_page(self):
         
@@ -46,15 +45,13 @@ class JobSearchApp:
         if st.button("SEARCH"):
             self.change_page("waiting_page")
 
-
     def render_waiting_page(self):
         st.subheader("Result")
         
         Data = Linkedin()
         Data.run()
         df = pd.read_csv("result.csv")
-        st.dataframe(df)
-        
+        st.dataframe(df)    
 
     def run(self):
         if st.session_state.page == "home":

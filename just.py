@@ -31,10 +31,7 @@ class Linkedin:
         password_field.send_keys(f"{self.password}")
         password_field.send_keys(Keys.RETURN)
         
-        WebDriverWait(self.driver, 180).until(EC.presence_of_element_located((By.ID, "global-nav-search")))
-        
-
-
+        WebDriverWait(self.driver, 180).until(EC.presence_of_element_located((By.ID, "global-nav-search")))     
 
     def searching(self):
         self.wait.until(EC.presence_of_element_located((By.ID, "global-nav-search")))
@@ -47,7 +44,6 @@ class Linkedin:
             self.experience = f2.readline().strip()
             self.num = int(f2.readline().strip())
         
-
         self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[aria-label='City, state, or zip code']")))
         location_search = self.driver.find_element(By.CSS_SELECTOR, "input[aria-label='City, state, or zip code']")
         location_search.clear()
@@ -63,13 +59,11 @@ class Linkedin:
         job_search.send_keys(Keys.RETURN)
         time.sleep(2)
 
-        WebDriverWait(self.driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[aria-label='Search by title, skill, or company']")))
-        search_b = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[aria-label='Search by title, skill, or company']")))
-        search_b.send_keys(Keys.RETURN)
-        time.sleep(10)
+        # WebDriverWait(self.driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[aria-label='Search by title, skill, or company']")))
+        # search_b = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[aria-label='Search by title, skill, or company']")))
+        # search_b.send_keys(Keys.RETURN)
+        # time.sleep(10)
     
-  
-
     def data_mining(self):
         jobs = self.wait.until(EC.presence_of_all_elements_located(
             (By.XPATH, "//li[contains(@class, 'occludable-update') and contains(@class, 'scaffold-layout__list-item')]")
@@ -96,7 +90,6 @@ class Linkedin:
                 
                 break
 
-
             try:
                 self.driver.execute_script("arguments[0].scrollIntoView();", job)
                 time.sleep(1)
@@ -105,26 +98,27 @@ class Linkedin:
                 if title in existing_titles:
                     index+=1
                     continue
-                existing_titles.add(title)
+                else:
+                    existing_titles.add(title)
 
-                company = job.find_element(By.CSS_SELECTOR, "div.artdeco-entity-lockup__subtitle").text
-                location = job.find_element(By.CSS_SELECTOR, "div.artdeco-entity-lockup__caption").text
-                link = job.find_element(By.CSS_SELECTOR, "a.job-card-list__title--link").get_attribute("href")
+                    company = job.find_element(By.CSS_SELECTOR, "div.artdeco-entity-lockup__subtitle").text
+                    location = job.find_element(By.CSS_SELECTOR, "div.artdeco-entity-lockup__caption").text
+                    link = job.find_element(By.CSS_SELECTOR, "a.job-card-list__title--link").get_attribute("href")
 
-                loc, type_ = location.split("(")
-                type_ = type_[:-1]
+                    loc, type_ = location.split("(")
+                    type_ = type_[:-1]
 
-                titles.append(title)
-                company_names.append(company)
-                locations.append(loc)
-                types.append(type_)
-                links.append(link)
-                index += 1
-                self.driver.execute_script("window.scrollBy(0, 150);")
-                time.sleep(1)
+                    titles.append(title)
+                    company_names.append(company)
+                    locations.append(loc)
+                    types.append(type_)
+                    links.append(link)
+                    index += 1
+                    self.driver.execute_script("window.scrollBy(0, 150);")
+                    time.sleep(1)
 
-                print("job",number_job,": success full")
-                number_job += 1
+                    print("job",number_job,": success full")
+                    number_job += 1
 
             except Exception as e:
                 print(e)
@@ -154,6 +148,3 @@ class Linkedin:
 if __name__ == "__main__" :
     data = Linkedin()
     data.run()
-
-
-    
