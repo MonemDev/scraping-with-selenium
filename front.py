@@ -24,17 +24,12 @@ class JobSearchApp:
             self.change_page("app_page")    
 
     def render_app_page(self):
-        
-        
         job = st.text_input("JOBS", "Data Science")
-
         location = st.text_input("LOCATION", value="United State")
-
         experience_level = st.selectbox(
             "EXPERIENCE LEVEL",
             ["Internship", "Entry level", "Associate", "Mid-Senior level", "Director", "Executive"]
         )
-
         num_results = st.number_input("How many results: ", value=10, min_value=1, max_value=20)
 
         with open("user_input.txt", 'w') as f:
@@ -42,12 +37,12 @@ class JobSearchApp:
             f.write(f"{location}"+ '\n')
             f.write(f"{experience_level}"+ '\n')
             f.write(f"{num_results}"+ '\n')
+            
         if st.button("SEARCH"):
             self.change_page("waiting_page")
 
     def render_waiting_page(self):
         st.subheader("Result")
-        
         Data = Linkedin()
         Data.run()
         df = pd.read_csv("result.csv")
