@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from just import *
+from back import *
 
 class JobSearchApp:
     def __init__(self):
